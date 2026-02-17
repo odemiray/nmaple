@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  font-family: "SF Mono", "Fira Code", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
+  font-family: "Fira Code", "SF Mono", "Cascadia Code", "JetBrains Mono", Consolas, monospace;
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
@@ -92,6 +92,7 @@ main {
 
 #command-display {
   flex: 1;
+  min-width: 0;
   background: transparent;
   border: none;
   color: var(--text);
@@ -265,6 +266,7 @@ main {
 
 .input-row input[type="text"] {
   flex: 1;
+  min-width: 0;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: 4px;
