@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nmaple - Nmap Command Builder</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Nmaple</h1>
+    <p class="subtitle">Stop Googling nmap flags. Just click.</p>
+  </header>
+
+  <main>
+    <!-- Command Output -->
+    <section id="command-output">
+      <div class="command-bar">
+        <span class="prompt">$</span>
+        <input type="text" id="command-display" readonly value="nmap">
+        <button id="copy-btn" title="Copy to clipboard">Copy</button>
+        <button id="reset-btn" title="Reset all selections">Reset</button>
+      </div>
+    </section>
+
+    <!-- Target -->
+    <section class="option-group">
+      <h2>Target</h2>
+      <div class="input-row">
+        <label for="target-input">IP / Hostname / CIDR</label>
+        <input type="text" id="target-input" placeholder="e.g. 192.168.1.1 or 10.0.0.0/24">
+      </div>
+    </section>
+
+    <!-- Scan Types -->
+    <section class="option-group">
+      <h2>Scan Type</h2>
+      <p class="group-hint">Select one primary scan type</p>
+      <div class="options-grid">
+        <label class="option" data-flag="-sS">
+          <input type="radio" name="scan-type" value="-sS">
+          <span class="flag">-sS</span>
+          <span class="desc">TCP SYN (stealth)</span>
+        </label>
+        <label class="option" data-flag="-sT">
+          <input type="radio" name="scan-type" value="-sT">
+          <span class="flag">-sT</span>
+          <span class="desc">TCP Connect</span>
+        </label>
+        <label class="option" data-flag="-sU">
+          <input type="radio" name="scan-type" value="-sU">
+          <span class="flag">-sU</span>
+          <span class="desc">UDP Scan</span>
+        </label>
+        <label class="option" data-flag="-sA">
+          <input type="radio" name="scan-type" value="-sA">
+          <span class="flag">-sA</span>
+          <span class="desc">ACK Scan</span>
+        </label>
+        <label class="option" data-flag="-sW">
+          <input type="radio" name="scan-type" value="-sW">
+          <span class="flag">-sW</span>
+          <span class="desc">Window Scan</span>
+        </label>
+        <label class="option" data-flag="-sN">
+          <input type="radio" name="scan-type" value="-sN">
+          <span class="flag">-sN</span>
+          <span class="desc">TCP Null</span>
+        </label>
+        <label class="option" data-flag="-sF">
+          <input type="radio" name="scan-type" value="-sF">
+          <span class="flag">-sF</span>
+          <span class="desc">FIN Scan</span>
+        </label>
+        <label class="option" data-flag="-sX">
+          <input type="radio" name="scan-type" value="-sX">
+          <span class="flag">-sX</span>
+          <span class="desc">Xmas Scan</span>
+        </label>
+        <label class="option" data-flag="-sn">
+          <input type="radio" name="scan-type" value="-sn">
+          <span class="flag">-sn</span>
+          <span class="desc">Ping Scan (no port scan)</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Host Discovery -->
+    <section class="option-group">
+      <h2>Host Discovery</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="-Pn">
+          <span class="flag">-Pn</span>
+          <span class="desc">Skip host discovery</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-PS">
+          <span class="flag">-PS</span>
+          <span class="desc">TCP SYN discovery</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-PA">
+          <span class="flag">-PA</span>
+          <span class="desc">TCP ACK discovery</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-PU">
+          <span class="flag">-PU</span>
+          <span class="desc">UDP discovery</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-PE">
+          <span class="flag">-PE</span>
+          <span class="desc">ICMP echo discovery</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-n">
+          <span class="flag">-n</span>
+          <span class="desc">No DNS resolution</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--traceroute">
+          <span class="flag">--traceroute</span>
+          <span class="desc">Traceroute</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Port Specification -->
+    <section class="option-group">
+      <h2>Port Specification</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="-p-">
+          <span class="flag">-p-</span>
+          <span class="desc">All 65535 ports</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-F">
+          <span class="flag">-F</span>
+          <span class="desc">Fast scan (top 100)</span>
+        </label>
+      </div>
+      <div class="input-row">
+        <label for="port-range">-p</label>
+        <input type="text" id="port-range" data-flag-prefix="-p " placeholder="e.g. 22,80,443 or 1-1024">
+      </div>
+      <div class="input-row">
+        <label for="top-ports">--top-ports</label>
+        <input type="text" id="top-ports" data-flag-prefix="--top-ports " placeholder="e.g. 1000">
+      </div>
+    </section>
+
+    <!-- Detection -->
+    <section class="option-group">
+      <h2>Detection</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="-sV">
+          <span class="flag">-sV</span>
+          <span class="desc">Service/version detection</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-O">
+          <span class="flag">-O</span>
+          <span class="desc">OS detection</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-A">
+          <span class="flag">-A</span>
+          <span class="desc">Aggressive (OS + version + scripts + traceroute)</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-sC">
+          <span class="flag">-sC</span>
+          <span class="desc">Default scripts</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- Timing -->
+    <section class="option-group">
+      <h2>Timing</h2>
+      <p class="group-hint">Select one timing template</p>
+      <div class="options-grid">
+        <label class="option" data-flag="-T0">
+          <input type="radio" name="timing" value="-T0">
+          <span class="flag">-T0</span>
+          <span class="desc">Paranoid</span>
+        </label>
+        <label class="option" data-flag="-T1">
+          <input type="radio" name="timing" value="-T1">
+          <span class="flag">-T1</span>
+          <span class="desc">Sneaky</span>
+        </label>
+        <label class="option" data-flag="-T2">
+          <input type="radio" name="timing" value="-T2">
+          <span class="flag">-T2</span>
+          <span class="desc">Polite</span>
+        </label>
+        <label class="option" data-flag="-T3">
+          <input type="radio" name="timing" value="-T3">
+          <span class="flag">-T3</span>
+          <span class="desc">Normal (default)</span>
+        </label>
+        <label class="option" data-flag="-T4">
+          <input type="radio" name="timing" value="-T4">
+          <span class="flag">-T4</span>
+          <span class="desc">Aggressive</span>
+        </label>
+        <label class="option" data-flag="-T5">
+          <input type="radio" name="timing" value="-T5">
+          <span class="flag">-T5</span>
+          <span class="desc">Insane</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- NSE Scripts -->
+    <section class="option-group">
+      <h2>NSE Scripts</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="--script=vuln">
+          <span class="flag">--script=vuln</span>
+          <span class="desc">Vulnerability scan</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--script=auth">
+          <span class="flag">--script=auth</span>
+          <span class="desc">Auth scripts</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--script=discovery">
+          <span class="flag">--script=discovery</span>
+          <span class="desc">Discovery scripts</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--script=safe">
+          <span class="flag">--script=safe</span>
+          <span class="desc">Safe scripts</span>
+        </label>
+      </div>
+      <div class="input-row">
+        <label for="custom-script">--script=</label>
+        <input type="text" id="custom-script" data-flag-prefix="--script=" placeholder="e.g. http-title,ssl-enum-ciphers">
+      </div>
+    </section>
+
+    <!-- Firewall / IDS Evasion -->
+    <section class="option-group">
+      <h2>Firewall / IDS Evasion</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="-f">
+          <span class="flag">-f</span>
+          <span class="desc">Fragment packets</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-ff">
+          <span class="flag">-ff</span>
+          <span class="desc">Double fragment</span>
+        </label>
+      </div>
+      <div class="input-row">
+        <label for="decoy-input">-D</label>
+        <input type="text" id="decoy-input" data-flag-prefix="-D " placeholder="e.g. RND:5 or decoy1,decoy2,ME">
+      </div>
+      <div class="input-row">
+        <label for="source-port-input">--source-port</label>
+        <input type="text" id="source-port-input" data-flag-prefix="--source-port " placeholder="e.g. 53">
+      </div>
+      <div class="input-row">
+        <label for="data-length-input">--data-length</label>
+        <input type="text" id="data-length-input" data-flag-prefix="--data-length " placeholder="e.g. 25">
+      </div>
+    </section>
+
+    <!-- Output -->
+    <section class="option-group">
+      <h2>Output</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="-v">
+          <span class="flag">-v</span>
+          <span class="desc">Verbose</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-vv">
+          <span class="flag">-vv</span>
+          <span class="desc">Very verbose</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="-d">
+          <span class="flag">-d</span>
+          <span class="desc">Debug</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--reason">
+          <span class="flag">--reason</span>
+          <span class="desc">Display reason</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--open">
+          <span class="flag">--open</span>
+          <span class="desc">Show only open ports</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--packet-trace">
+          <span class="flag">--packet-trace</span>
+          <span class="desc">Packet trace</span>
+        </label>
+      </div>
+      <div class="input-row">
+        <label for="output-file">-oN</label>
+        <input type="text" id="output-file" data-flag-prefix="-oN " placeholder="output filename">
+      </div>
+      <div class="input-row">
+        <label for="output-xml">-oX</label>
+        <input type="text" id="output-xml" data-flag-prefix="-oX " placeholder="XML output filename">
+      </div>
+      <div class="input-row">
+        <label for="output-grep">-oG</label>
+        <input type="text" id="output-grep" data-flag-prefix="-oG " placeholder="grepable output filename">
+      </div>
+    </section>
+
+    <!-- Misc -->
+    <section class="option-group">
+      <h2>Misc</h2>
+      <div class="options-grid">
+        <label class="option">
+          <input type="checkbox" data-flag="-6">
+          <span class="flag">-6</span>
+          <span class="desc">IPv6 scanning</span>
+        </label>
+        <label class="option">
+          <input type="checkbox" data-flag="--privileged">
+          <span class="flag">--privileged</span>
+          <span class="desc">Assume privileged</span>
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Nmaple &mdash; because life's too short for nmap cheatsheets.</p>
+  </footer>
+
+  <div id="copy-toast" class="toast hidden">Copied!</div>
+
+  <script src="app.js"></script>
+</body>
+</html>
