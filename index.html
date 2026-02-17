@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nmaple - Nmap Command Builder</title>
+  <link rel="icon" type="image/png" href="./img/favicon.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -169,7 +170,11 @@
         <label class="option">
           <input type="checkbox" data-flag="-A">
           <span class="flag">-A</span>
-          <span class="desc">Aggressive (OS + version + scripts + traceroute)</span>
+          <div class="container">
+            <span class="desc">Aggressive</span>
+            <span class="desc">(OS, version, scripts, traceroute)</span>
+          </div>
+          
         </label>
         <label class="option">
           <input type="checkbox" data-flag="-sC">
