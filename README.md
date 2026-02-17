@@ -26,6 +26,7 @@ No frameworks. No build step. No dependencies. Just open `index.html`.
 - **Dark terminal-themed UI** — monospace font, dark background, feels right at home next to your terminal
 - **Fully responsive** — works on desktop and mobile
 - **Zero dependencies** — vanilla HTML, CSS, and JavaScript
+- **Completely offline - You can paste your target to make the entire flow easier. Not a single byte of data is collected.
 
 ## Supported Nmap Options
 
