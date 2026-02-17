@@ -1,5 +1,7 @@
 [![Deploy static content to Pages](https://github.com/odemiray/nmaple/actions/workflows/deploy.yml/badge.svg)](https://github.com/odemiray/nmaple/actions/workflows/deploy.yml)
 
+![Nmaple Logo](./img/nmap-banner.png)
+
 # Nmaple
 
 **Stop Googling nmap flags. Just click.**
