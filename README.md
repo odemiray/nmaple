@@ -1,4 +1,4 @@
-[![Deploy static content to Pages](https://github.com/odemiray/nmaple/actions/workflows/static.yml/badge.svg?branch=main)](https://github.com/odemiray/nmaple/actions/workflows/static.yml)
+[![Deploy static content to Pages](https://github.com/odemiray/nmaple/actions/workflows/deploy.yml/badge.svg)](https://github.com/odemiray/nmaple/actions/workflows/deploy.yml)
 
 # Nmaple
 
