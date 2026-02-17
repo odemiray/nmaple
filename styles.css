@@ -47,7 +47,13 @@ header h1 {
 
 .subtitle {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.subtitle_2 {
+  color: var(--text-muted);
+  font-size: 0.8rem;
   margin-top: 0.25rem;
 }
 
@@ -328,6 +334,10 @@ footer {
   color: var(--text-muted);
   font-size: 0.75rem;
   border-top: 1px solid var(--border);
+}
+
+a {
+  color: inherit;
 }
 
 /* ---- Responsive ---- */
