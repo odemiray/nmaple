@@ -1,6 +1,8 @@
 [![Deploy static content to Pages](https://github.com/odemiray/nmaple/actions/workflows/deploy.yml/badge.svg)](https://github.com/odemiray/nmaple/actions/workflows/deploy.yml)
 
-![Nmaple Logo](./img/nmap-banner.png)
+<p align="center">
+  <img src="./img/nmap-banner.png" alt="Nmaple Logo" width="400">
+</p>
 
 # Nmaple
 
